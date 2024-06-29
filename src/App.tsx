@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
+import Markdown from "react-markdown";
 
 interface Message {
   text: string;
@@ -86,7 +87,7 @@ export default function App() {
                   <div className={`flex ${message.isUser ? 'justify-end' : 'justify-start mb-1'} text-sm font-bold `}>
                     {message.isUser ? '' : 'Response:'}
                   </div>
-                  {message.text}
+                  <Markdown>{message.text}</Markdown>
                   {message.isUser ? (
                     <div className="absolute bottom-0 right-0 w-0 h-0 border-t-[10px] border-t-blue-500 border-l-[10px] border-l-transparent"></div>
                   ) : (
