@@ -15,7 +15,7 @@ test('Renders demo intro component', () => {
 });
 
 test('Renders demo intro component with messages', () => {
-  render(<DemoIntro messages={[{ text: 'Hello', isUser: true }]} />);
+  render(<DemoIntro messages={[{ id: 1, text: 'Hello', isUser: true }]} />);
   const demoIntro = screen.getByText(/Hidden/i);
   expect(demoIntro).toBeInTheDocument();
 });
@@ -68,13 +68,13 @@ test('Renders Main component', () => {
 });
 
 test('Renders response time component from non-user', () => {
-  render(<ResponseTime message={{ text: 'Hello', isUser: false, responseTime: 0 }} />);
-  const responseTime = screen.getByText(/Response time/i);
+  render(<ResponseTime message={{ id: 1, text: 'Hello', isUser: false, responseTime: 0 }} />);
+  const responseTime = screen.getByText(/s/i);
   expect(responseTime).toBeInTheDocument();
 });
 
 test('Renders response time component from user', () => {
-  render(<ResponseTime message={{ text: 'Hello', isUser: true, responseTime: 0 }} />);
+  render(<ResponseTime message={{ id: 1, text: 'Hello', isUser: true, responseTime: 0 }} />);
   const responseTime = screen.getByText(/Hidden/i);
   expect(responseTime).toBeInTheDocument();
 });

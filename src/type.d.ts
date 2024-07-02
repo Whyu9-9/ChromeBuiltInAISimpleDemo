@@ -1,4 +1,5 @@
 type Message = {
+    id: number;
     text: string;
     isUser: boolean;
     responseTime?: number | null;
