@@ -35,7 +35,9 @@ export const Chat: FC<{
                         {
                             !message.isUser && (
                                 <div className='flex justify-start items-center gap-2'>
-                                    <TfiReload className='mt-1 h-4 w-4 cursor-pointer' onClick={() => handleReload(message.id)} />
+                                    {messages.indexOf(message) === messages.length - 1 && (
+                                        <TfiReload className='mt-1 h-4 w-4 cursor-pointer' onClick={() => handleReload(message.id)} />
+                                    )}
                                     <MdContentCopy className='mt-1 h-4 w-4 cursor-pointer' onClick={() => handleCopyMessage(message.text)} />
                                     <ResponseTime message={message} />
                                 </div>
