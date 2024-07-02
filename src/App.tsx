@@ -27,7 +27,7 @@ export default function App() {
     adjustTextareaHeight();
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (textareaRef.current) {
       textareaRef.current.style.height = '40px';
@@ -41,33 +41,30 @@ export default function App() {
     setInput('');
     setLoading(true);
     const startTime = Date.now();
+    try {
+      const canCreate = await window.ai.canCreateTextSession();
 
-    setTimeout(async () => {
-      try {
-        const canCreate = await window.ai.canCreateTextSession();
+      if (canCreate !== "no") {
+        const session = await window.ai.createTextSession();
+        const result = await session.prompt(input);
 
-        if (canCreate !== "no") {
-          const session = await window.ai.createTextSession();
-          const result = await session.prompt(input);
+        const endTime = Date.now();
+        const calculatedResponseTime = (endTime - startTime) / 1000;
 
-          const endTime = Date.now();
-          const calculatedResponseTime = (endTime - startTime) / 1000;
+        setMessages((prevMessages) => {
+          const updatedMessages = [...prevMessages, { text: result, isUser: false, responseTime: calculatedResponseTime }];
+          return updatedMessages.length > 10 ? updatedMessages.slice(1) : updatedMessages;
+        });
 
-          setMessages((prevMessages) => {
-            const updatedMessages = [...prevMessages, { text: result, isUser: false, responseTime: calculatedResponseTime }];
-            return updatedMessages.length > 10 ? updatedMessages.slice(1) : updatedMessages;
-          });
-
-          session.destroy();
-        } else {
-          handleSessionError(startTime);
-        }
-      } catch (error) {
-        handleSessionError(startTime, error);
-      } finally {
-        setLoading(false);
+        session.destroy();
+      } else {
+        handleSessionError(startTime);
       }
-    }, 1000);
+    } catch (error) {
+      handleSessionError(startTime, error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSessionError = (startTime: number, error?: any) => {
