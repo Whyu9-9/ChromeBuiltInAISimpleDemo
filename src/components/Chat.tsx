@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler } from 'react'
+import { FC } from 'react'
 import Markdown from 'react-markdown'
 import { ResponseTime } from './ResponseTime'
 import { Loader } from './Loader'
