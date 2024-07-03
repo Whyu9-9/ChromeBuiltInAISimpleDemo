@@ -1,4 +1,4 @@
-# Simple ChatGPT Clone with React using Chrome Built-in AI
+# Simple chatbot built using React that utilizes Chrome Gemini Nano's built-in AI
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). 
 
