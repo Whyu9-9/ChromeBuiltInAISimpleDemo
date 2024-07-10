@@ -7,6 +7,7 @@ import { Chat } from "./components/Chat";
 import { Body } from "./components/Body";
 import { Main } from "./components/Main";
 import Snackbar from '@mui/material/Snackbar';
+import { Analytics } from '@vercel/analytics/react';
 
 declare const window: any;
 
@@ -112,6 +113,7 @@ export default function App() {
     <Main>
       <DemoIntro messages={messages} />
       <Body>
+        <Analytics />
         <Chat
           messages={messages}
           loading={loading}
