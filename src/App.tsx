@@ -8,6 +8,7 @@ import { Body } from "./components/Body";
 import { Main } from "./components/Main";
 import Snackbar from '@mui/material/Snackbar';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 declare const window: any;
 
@@ -113,6 +114,7 @@ export default function App() {
     <Main>
       <DemoIntro messages={messages} />
       <Body>
+        <SpeedInsights />
         <Analytics />
         <Chat
           messages={messages}
