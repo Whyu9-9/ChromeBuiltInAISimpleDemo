@@ -58,7 +58,19 @@ export default function App() {
                 const result = await session.prompt(text);
                 const endTime = Date.now();
                 const calculatedResponseTime = (endTime - startTime) / 1000;
-                session.destroy();
+                window.addEventListener("load", () => {
+                    const navigationEntries = performance.getEntriesByType(
+                        "navigation"
+                    ) as PerformanceNavigationTiming[];
+                    const navType = navigationEntries[0]?.type;
+
+                    if (navType === "reload") {
+                        // Execute your code here
+                        console.log("Page was refreshed!");
+                        // Add additional functionality here
+                        session.destroy();
+                    }
+                });
                 return { result, calculatedResponseTime };
             } else {
                 return {
